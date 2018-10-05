@@ -17,12 +17,14 @@ spec:
     spec:
 
       volumes:
+
       - name: kuard-pvc
         persistentVolumeClaim:
           claimName: kuard-pvc
-      - name: secret-volume
+
+      - name: kuard-secrets
         secret:
-          secretName: i0-secret
+          secretName: kuard-secrets
 
       containers:
       - name: kuard
@@ -37,12 +39,14 @@ spec:
         - name: SECRET_VALUE
           valueFrom:
             secretKeyRef:
-              key: i0-secret
+              name: kuard-secrets
+              key: username
+
 
         volumeMounts:
         - name: kuard-pvc
           mountPath: /i0-workshop/pvc
-        - name: something
+        - name: kuard-secrets
           mountPath: /i0-workshop/secrets
 
 
